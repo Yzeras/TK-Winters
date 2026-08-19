@@ -55,7 +55,9 @@
   #worldbg{position:fixed;inset:0;z-index:-1;background:var(--world) center top/cover no-repeat;
     opacity:.09;pointer-events:none;}
 
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  html,body{max-width:100%;overflow-x:hidden;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;box-sizing:border-box;}
+  .wrap>*{min-width:0;}
   .mono{font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--muted);}
 
   /* ---------- KOPFLEISTE ---------- */
@@ -79,7 +81,7 @@
     opacity:.92;filter:contrast(1.06) saturate(1.08);}
   .hero-bg::after{content:"";position:absolute;inset:0;
     background:radial-gradient(150% 78% at 50% 50%,transparent 44%,var(--bg) 96%),linear-gradient(180deg,rgba(7,7,12,.84) 0%,rgba(7,7,12,.62) 18%,rgba(7,7,12,.42) 32%,rgba(7,7,12,.15) 45%,transparent 56%,transparent 62%,rgba(7,7,12,.5) 80%,var(--bg) 98%);}
-  .hero-inner{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;justify-content:space-between;padding:12vh 0 12vh;}
+  .hero-inner{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;justify-content:space-between;padding:12vh 24px;}
   .hero .terminal{color:var(--violet-glow);font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;margin-bottom:1.2rem;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.8);}
   .hero h1{
     font-family:var(--sans);font-weight:800;letter-spacing:.02em;
@@ -109,6 +111,7 @@
     color:var(--violet-glow);margin:0 0 .6rem;
   }
   .buyblock h3{
+    overflow-wrap:break-word;
     font-family:var(--sans);font-weight:800;font-size:clamp(1.3rem,2.6vw,1.9rem);
     color:var(--ink);margin:0 0 .5rem;letter-spacing:.01em;
   }
@@ -126,7 +129,8 @@
   .bl-cta:hover,.bl-cta:focus-visible{background:var(--violet-glow);transform:translateY(-1px);}
   @media(max-width:640px){
     .buyblock{padding:2.1rem 0;}
-    .buyblock-in{flex-direction:column;align-items:flex-start;gap:1.3rem;}
+    .buyblock-in{flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:1.3rem;}
+    .buyblock-in>*{min-width:0;max-width:100%;}
     .bl-cta{width:100%;justify-content:center;}
   }
 
@@ -338,7 +342,9 @@
     .hero h1{font-size:clamp(2.6rem,13vw,4.6rem);letter-spacing:0;}
     .hero .sub{letter-spacing:.14em;}
     .hero .blurb{font-size:1.02rem;}
-    .hero-inner{padding:10vh 0 9vh;}
+    .hero-inner{padding:max(10vh,132px) 30px 4vh;}
+    .hero{min-height:100svh;}
+    .scrollcue{display:none;}
     .author{grid-template-columns:1fr;text-align:center;justify-items:center;}
     .lb-card{flex-direction:column;max-height:92vh;}
     .lb-img{flex:0 0 32vh;}
@@ -469,6 +475,11 @@
     .sammelband{padding:1.4rem 1.5rem;}
   }
 
+
+  /* all:unset setzt box-sizing auf content-box zurück -> Breitenberechnung kippt.
+     Für alle betroffenen Schaltflächen wieder auf border-box stellen. */
+  .navlink,.bl-cta,.akte,.chip-card,.cover,.bio-btn,.flink,
+  .backlink,.mb-read,.story{box-sizing:border-box;}
 </style>
 </head>
 <body>
